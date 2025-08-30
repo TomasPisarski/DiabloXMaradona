@@ -35,6 +35,7 @@ enum _talker_id : uint8_t {
 	TOWN_FARMER,
 	TOWN_GIRL,
 	TOWN_COWFARM,
+	TOWN_MARADONA,
 	NUM_TOWNER_TYPES,
 };
 

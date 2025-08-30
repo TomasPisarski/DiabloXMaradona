@@ -15,6 +15,7 @@
 #include "utils/is_of.hpp"
 #include "utils/language.h"
 #include "utils/str_case.hpp"
+#include <plrmsg.h>
 
 namespace devilution {
 namespace {
@@ -748,10 +749,41 @@ void TalkToGirl(Player &player, Towner &girl)
 	}
 }
 
+// Seccion maradona
+
+void InitMaradona(Towner &towner, const TownerData &townerData)
+{
+	towner._tAnimWidth = 96;
+	static const uint8_t AnimOrder[] = {
+		// clang-format off
+		4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4,
+		4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4,
+		4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4,
+		4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4,
+		4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4,
+		4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,
+		0, 0, 0, 0, 0, 0,  0,  0,  0,  0,  0,  0,  0,  0, 0, 1, 2, 3
+		// clang-format on
+	};
+	towner.animOrder = { AnimOrder };
+	LoadTownerAnimations(towner, "towners\\maradona\\maradonastand", 16, 3);
+	// towner.gossip = PickRandomlyAmong({ TEXT_GRISWOLD2, TEXT_GRISWOLD3, TEXT_GRISWOLD4, TEXT_GRISWOLD5, TEXT_GRISWOLD6, TEXT_GRISWOLD7, TEXT_GRISWOLD8, TEXT_GRISWOLD9, TEXT_GRISWOLD10, TEXT_GRISWOLD12, TEXT_GRISWOLD13 });
+}
+
+void TalkToMaradona(Player &player, Towner &farmer)
+{
+	InitQTextMsg(TEXT_MARADONA);
+	std::thread([] {
+		std::this_thread::sleep_for(std::chrono::seconds(15));
+		EventPlrMsg("You hear tribal sounds from the church", UiFlags::ColorRed);
+	}).detach();
+}
+
 const TownerData TownersData[] = {
 	// clang-format off
 	// type         position    dir                   init           talk
 	{ TOWN_SMITH,   { 62, 63 }, Direction::SouthWest, InitSmith,     TalkToBlackSmith  },
+	{ TOWN_MARADONA,   { 75, 82 }, Direction::SouthWest, InitMaradona,     TalkToMaradona  },
 	{ TOWN_HEALER,  { 55, 79 }, Direction::SouthEast, InitHealer,    TalkToHealer      },
 	{ TOWN_DEADGUY, { 24, 32 }, Direction::North,     InitTownDead,  TalkToDeadguy     },
 	{ TOWN_TAVERN,  { 55, 62 }, Direction::SouthWest, InitBarOwner,  TalkToBarOwner    },
@@ -786,7 +818,8 @@ const char *const TownerLongNames[NUM_TOWNER_TYPES] {
 	N_("Cow"),
 	N_("Lester the farmer"),
 	N_("Celia"),
-	N_("Complete Nut")
+	N_("Complete Nut"),
+	N_("Crazy Boca Player")
 };
 
 /** Contains the data related to quest gossip for each towner ID. */
@@ -806,6 +839,7 @@ _speech_id QuestDialogTable[NUM_TOWNER_TYPES][MAXQUESTS] = {
 	/*TOWN_FARMER*/  { TEXT_NONE,    TEXT_NONE,   TEXT_NONE, TEXT_NONE, TEXT_NONE,  TEXT_NONE,  TEXT_NONE,   TEXT_NONE,    TEXT_NONE,   TEXT_NONE,   TEXT_NONE,    TEXT_NONE,    TEXT_NONE,   TEXT_NONE,     TEXT_NONE,  TEXT_NONE,   TEXT_NONE,   TEXT_NONE, TEXT_NONE, TEXT_NONE, TEXT_NONE, TEXT_NONE, TEXT_NONE, TEXT_NONE },
 	/*TOWN_GIRL*/    { TEXT_NONE,    TEXT_NONE,   TEXT_NONE, TEXT_NONE, TEXT_NONE,  TEXT_NONE,  TEXT_NONE,   TEXT_NONE,    TEXT_NONE,   TEXT_NONE,   TEXT_NONE,    TEXT_NONE,    TEXT_NONE,   TEXT_NONE,     TEXT_NONE,  TEXT_NONE,   TEXT_NONE,   TEXT_NONE, TEXT_NONE, TEXT_NONE, TEXT_NONE, TEXT_NONE, TEXT_NONE, TEXT_NONE },
 	/*TOWN_COWFARM*/ { TEXT_NONE,    TEXT_NONE,   TEXT_NONE, TEXT_NONE, TEXT_NONE,  TEXT_NONE,  TEXT_NONE,   TEXT_NONE,    TEXT_NONE,   TEXT_NONE,   TEXT_NONE,    TEXT_NONE,    TEXT_NONE,   TEXT_NONE,     TEXT_NONE,  TEXT_NONE,   TEXT_NONE,   TEXT_NONE, TEXT_NONE, TEXT_NONE, TEXT_NONE, TEXT_NONE, TEXT_NONE, TEXT_NONE },
+	/*TOWN_MARADONA*/ { TEXT_NONE,    TEXT_NONE,   TEXT_NONE, TEXT_NONE, TEXT_NONE,  TEXT_NONE,  TEXT_NONE,   TEXT_NONE,    TEXT_NONE,   TEXT_NONE,   TEXT_NONE,    TEXT_NONE,    TEXT_NONE,   TEXT_NONE,     TEXT_NONE,  TEXT_NONE,   TEXT_NONE,   TEXT_NONE, TEXT_NONE, TEXT_NONE, TEXT_NONE, TEXT_NONE, TEXT_NONE, TEXT_NONE },
 	// clang-format on
 };
 
@@ -941,5 +975,7 @@ bool DebugTalkToTowner(_talker_id type)
 	return false;
 }
 #endif
+
+
 
 } // namespace devilution

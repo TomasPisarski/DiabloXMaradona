@@ -14,6 +14,14 @@
           "name": "DISCORD_INTEGRATION",
           "value": "True",
           "type": "BOOL"
+        },
+        {
+          "name": "CMAKE_TOOLCHAIN_FILE",
+          "value": "C:/vcpkg/scripts/buildsystems/vcpkg.cmake"
+        },
+        {
+          "name": "VCPKG_TARGET_TRIPLET",
+          "value": "x64-windows"
         }
       ]
     },
@@ -72,6 +80,14 @@
           "name": "DISCORD_INTEGRATION",
           "value": "True",
           "type": "BOOL"
+        },
+        {
+          "name": "CMAKE_TOOLCHAIN_FILE",
+          "value": "C:/vcpkg/scripts/buildsystems/vcpkg.cmake"
+        },
+        {
+          "name": "VCPKG_TARGET_TRIPLET",
+          "value": "x64-windows"
         }
       ]
     },

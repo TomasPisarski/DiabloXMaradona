@@ -37,6 +37,7 @@ ankerl::unordered_dense::map<std::string_view, _talker_id> TownerShortNameToTown
 	{ "girl", _talker_id ::TOWN_GIRL },
 	{ "nut", _talker_id::TOWN_COWFARM },
 	{ "cowfarm", _talker_id::TOWN_COWFARM },
+	{ "diegote", _talker_id::TOWN_MARADONA }
 };
 
 std::string DebugCmdVisitTowner(std::string_view name)

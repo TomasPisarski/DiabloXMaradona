@@ -906,3 +906,4 @@ NarratorHF9	Stream	sfx\hellfire\naratr9.wav
 NarratorHF4	Stream	sfx\hellfire\naratr4.wav
 CryptDoorOpen	Misc	sfx\items\cropen.wav
 CryptDoorClose	Misc	sfx\items\crclos.wav
+Maradona	Stream	sfx\towners\Maradona.wav

@@ -1021,8 +1021,9 @@ enum class SfxID : int16_t {
 	NarratorHF4,
 	CryptDoorOpen,
 	CryptDoorClose,
+	Maradona,
 
-	LAST = CryptDoorClose,
+	LAST = Maradona,
 	None = -1,
 };
 
